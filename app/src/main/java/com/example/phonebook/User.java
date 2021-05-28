@@ -3,35 +3,33 @@ package com.example.phonebook;
 import java.util.UUID;
 
 public class User {
-    private String userName;
-    private String userLastName;
-    private UUID uuid;
+    private String firstName;
+    private String lastName;
     private String phone;
-    public User(){
+    private UUID uuid;
+
+    public User() {
         this(UUID.randomUUID());
     }
-    public User(UUID uuid){
+
+    public User(UUID uuid) {
         this.uuid = uuid;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getUserLastName() {
-        return userLastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
-    }
-
-    public UUID getUuid() {
-        return uuid;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhone() {
@@ -40,5 +38,9 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 }

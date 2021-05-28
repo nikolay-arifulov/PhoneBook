@@ -3,7 +3,7 @@ package com.example.phonebook;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
-import com.example.phonebook.database.UserDbSchema;
+import com.example.phonebook.database.UserDBSchema;
 
 import java.util.UUID;
 
@@ -13,14 +13,14 @@ public class UserCursorWrapper extends CursorWrapper {
     }
 
     public User getUser(){
-        String uuidString = getString(getColumnIndex(UserDbSchema.UserTable.Cols.UUID));
-        String userName = getString(getColumnIndex(UserDbSchema.UserTable.Cols.FIRSTNAME));
-        String userLastName = getString(getColumnIndex(UserDbSchema.UserTable.Cols.LASTNAME));
-        String phone = getString(getColumnIndex(UserDbSchema.UserTable.Cols.PHONE));
+        String uuidString = getString(getColumnIndex(UserDBSchema.UserTable.Column.UUID));
+        String userName = getString(getColumnIndex(UserDBSchema.UserTable.Column.FIRSTNAME));
+        String userLastName = getString(getColumnIndex(UserDBSchema.UserTable.Column.LASTNAME));
+        String phone = getString(getColumnIndex(UserDBSchema.UserTable.Column.PHONE));
 
         User user = new User(UUID.fromString(uuidString));
-        user.setUserName(userName);
-        user.setUserLastName(userLastName);
+        user.setFirstName(userName);
+        user.setLastName(userLastName);
         user.setPhone(phone);
         return user;
     }

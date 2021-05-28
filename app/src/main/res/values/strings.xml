@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">PhoneBook</string>
+    <string name="app_name">Телефонная книга</string>
+    <string name="add_user">Добавить пользователя</string>
+    <string name="adding_user">Добавление пользователя</string>
+    <string name="view_user">Просмотр пользователя</string>
+    <string name="changing_user">Изменение пользователя</string>
+    <string name="delete_user">Удалить</string>
+    <string name="change_user">Изменить</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="phone">Номер телефона</string>
 </resources>

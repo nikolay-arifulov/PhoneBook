@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.phonebook.database.UserDbSchema.*;
+import com.example.phonebook.database.UserDBSchema.*;
 
 public class UserBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
@@ -15,13 +15,13 @@ public class UserBaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) { // Если базы не существует, то вызывается метод onCreate(SQLiteDatabase db)
+    public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+ UserTable.NAME+ "(" +
                 "_id integer primary key autoincrement, " +
-                UserTable.Cols.UUID+"," +
-                UserTable.Cols.FIRSTNAME+"," +
-                UserTable.Cols.LASTNAME+"," +
-                UserTable.Cols.PHONE+")");
+                UserTable.Column.UUID+"," +
+                UserTable.Column.FIRSTNAME+"," +
+                UserTable.Column.LASTNAME+"," +
+                UserTable.Column.PHONE+")");
     }
 
     @Override

@@ -1,70 +1,70 @@
 package com.example.phonebook;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.phonebook.database.UserBaseHelper;
-import com.example.phonebook.database.UserDbSchema;
+import com.example.phonebook.database.UserDBSchema;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Users {
-    /*private String name;
-    private String phone;*/
     private static Users users;
     private SQLiteDatabase database;
-    private Context context;
-    private List<String> userList;
 
-    public static Users get(Context context){
-        if (users == null){
-            users = new Users(context);
-        }
+    public static Users get(Context context) {
+        if (users == null) users = new Users(context);
         return users;
     }
 
     private Users(Context context) {
-        this.context = context.getApplicationContext();
         this.database = new UserBaseHelper(context).getWritableDatabase();
     }
 
-    public void addUser(User user){ // Метод добавления пользователя в БД
+    public void addUser(User user) {
         ContentValues values = getContentValues(user);
-        database.insert(UserDbSchema.UserTable.NAME,null,values);
+        database.insert(UserDBSchema.UserTable.NAME,null, values);
+    }
+
+    public void deleteUser(User user) {
+        database.delete(UserDBSchema.UserTable.NAME, UserDBSchema.UserTable.Column.UUID + "=?", new String[]{user.getUuid().toString()});
+    }
+
+    public void changeUser(User user) {
+        ContentValues values = getContentValues(user);
+        database.update(UserDBSchema.UserTable.NAME, values, UserDBSchema.UserTable.Column.UUID + "=?", new String[]{user.getUuid().toString()});
     }
 
     private static ContentValues getContentValues(User user){
         ContentValues values = new ContentValues();
-        values.put(UserDbSchema.UserTable.Cols.UUID, user.getUuid().toString());
-        values.put(UserDbSchema.UserTable.Cols.FIRSTNAME, user.getUserName());
-        values.put(UserDbSchema.UserTable.Cols.LASTNAME, user.getUserLastName());
-        values.put(UserDbSchema.UserTable.Cols.PHONE, user.getPhone());
+        values.put(UserDBSchema.UserTable.Column.UUID, user.getUuid().toString());
+        values.put(UserDBSchema.UserTable.Column.FIRSTNAME, user.getFirstName());
+        values.put(UserDBSchema.UserTable.Column.LASTNAME, user.getLastName());
+        values.put(UserDBSchema.UserTable.Column.PHONE, user.getPhone());
         return values;
     }
 
-    private UserCursorWrapper queryUsers(){
-        Cursor cursor = database.query(UserDbSchema.UserTable.NAME,null,null,null,null,null,null);
+    private UserCursorWrapper queryUsers() {
+        Cursor cursor = database.query(UserDBSchema.UserTable.NAME,null,null,null,null,null,null);
         return new UserCursorWrapper(cursor);
     }
 
-    public List<String> getUserList(){
-        userList = new ArrayList<>();
+    public ArrayList<User> getUserList() {
+        ArrayList<User> userList = new ArrayList<>();
         UserCursorWrapper cursorWrapper = queryUsers();
-        try{
+        try {
             cursorWrapper.moveToFirst();
             while (!cursorWrapper.isAfterLast()){
                 User user = cursorWrapper.getUser();
-                userList.add(user.getUserName()+" "+user.getUserLastName());
+                userList.add(user);
                 cursorWrapper.moveToNext();
             }
-        }finally {
+        } finally {
             cursorWrapper.close();
         }
 
-        return this.userList;
+        return userList;
     }
 }

@@ -2,9 +2,9 @@ package com.example.phonebook;
 
 import androidx.fragment.app.Fragment;
 
-public class AddUserActivity extends SingleFragmentActivity {
+public class UserActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
-        return new AddUserFragment();
+        return new UserFragment();
     }
 }
