@@ -1,4 +1,4 @@
-package com.example.phonebook.activities;
+package com.example.phonebook;
 
 import android.os.Bundle;
 
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment userListFragment = new UserListFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragmentContainer, userListFragment).commit();
+            fragmentTransaction.add(R.id.fragmentContainer, userListFragment).commit();
         }
     }
 }

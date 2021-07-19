@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 
 import com.example.phonebook.User;
 
@@ -45,11 +46,13 @@ public class Users {
         return values;
     }
 
+    // Метод извлекает все данные из таблицы в виде Cursor
     private UserCursorWrapper queryUsers() {
         Cursor cursor = database.query(UserDBSchema.UserTable.NAME,null,null,null,null,null,null);
         return new UserCursorWrapper(cursor);
     }
 
+    // Метод возвращает список пользователей из таблицы
     public ArrayList<User> getUserList() {
         ArrayList<User> userList = new ArrayList<>();
         try (UserCursorWrapper cursorWrapper = queryUsers()) {
