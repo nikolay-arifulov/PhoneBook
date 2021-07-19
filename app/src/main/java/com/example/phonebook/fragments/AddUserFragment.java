@@ -1,4 +1,4 @@
-package com.example.phonebook;
+package com.example.phonebook.fragments;
 
 import android.os.Bundle;
 
@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.phonebook.R;
+import com.example.phonebook.User;
+import com.example.phonebook.database.Users;
+
 public class AddUserFragment extends Fragment {
-    private Button insertUserButton;
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText phoneEditText;
@@ -25,25 +28,20 @@ public class AddUserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_user, container, false);
-        insertUserButton = view.findViewById(R.id.insertUserButton);
+        Button insertUserButton = view.findViewById(R.id.insertUserButton);
         firstNameEditText = view.findViewById(R.id.firstNameEditText);
         lastNameEditText = view.findViewById(R.id.lastNameEditText);
         phoneEditText = view.findViewById(R.id.phoneEditText);
 
-        insertUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Users users = Users.get(getActivity());
-                User user = new User();
-                user.setFirstName(firstNameEditText.getText().toString());
-                user.setLastName(lastNameEditText.getText().toString());
-                user.setPhone(phoneEditText.getText().toString());
-                users.addUser(user);
-                getActivity().onBackPressed();
-            }
+        insertUserButton.setOnClickListener(v -> {
+            Users users = Users.get(getActivity());
+            User user = new User();
+            user.setFirstName(firstNameEditText.getText().toString());
+            user.setLastName(lastNameEditText.getText().toString());
+            user.setPhone(phoneEditText.getText().toString());
+            users.addUser(user);
+            getParentFragmentManager().popBackStack();
         });
         return view;
     }
-
-
 }

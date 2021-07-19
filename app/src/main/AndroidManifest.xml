@@ -9,14 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PhoneBook">
-        <activity android:name=".AddUserActivity"
-            android:label="@string/adding_user"/>
-        <activity android:name=".UserActivity"
-            android:label="@string/view_user"/>
-        <activity android:name=".ChangeUserActivity"
-            android:label="@string/changing_user"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

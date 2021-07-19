@@ -1,18 +1,17 @@
-package com.example.phonebook;
+package com.example.phonebook.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.phonebook.database.UserBaseHelper;
-import com.example.phonebook.database.UserDBSchema;
+import com.example.phonebook.User;
 
 import java.util.ArrayList;
 
 public class Users {
     private static Users users;
-    private SQLiteDatabase database;
+    private final SQLiteDatabase database;
 
     public static Users get(Context context) {
         if (users == null) users = new Users(context);
@@ -25,7 +24,7 @@ public class Users {
 
     public void addUser(User user) {
         ContentValues values = getContentValues(user);
-        database.insert(UserDBSchema.UserTable.NAME,null, values);
+        database.insert(UserDBSchema.UserTable.NAME, null, values);
     }
 
     public void deleteUser(User user) {
@@ -53,16 +52,13 @@ public class Users {
 
     public ArrayList<User> getUserList() {
         ArrayList<User> userList = new ArrayList<>();
-        UserCursorWrapper cursorWrapper = queryUsers();
-        try {
+        try (UserCursorWrapper cursorWrapper = queryUsers()) {
             cursorWrapper.moveToFirst();
-            while (!cursorWrapper.isAfterLast()){
+            while (!cursorWrapper.isAfterLast()) {
                 User user = cursorWrapper.getUser();
                 userList.add(user);
                 cursorWrapper.moveToNext();
             }
-        } finally {
-            cursorWrapper.close();
         }
 
         return userList;

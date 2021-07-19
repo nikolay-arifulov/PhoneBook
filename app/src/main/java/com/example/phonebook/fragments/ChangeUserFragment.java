@@ -1,19 +1,20 @@
-package com.example.phonebook;
+package com.example.phonebook.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.phonebook.R;
+import com.example.phonebook.User;
+import com.example.phonebook.database.Users;
+
 public class ChangeUserFragment extends Fragment {
-    private Button changeUserButton;
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText phoneEditText;
@@ -22,15 +23,17 @@ public class ChangeUserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int position = getActivity().getIntent().getIntExtra("position",1);
-        user = Users.get(getActivity()).getUserList().get(position);
+        if (getArguments() != null) {
+            int position = getArguments().getInt("position", 1);
+            user = Users.get(getActivity()).getUserList().get(position);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_change_user, container, false);
-        changeUserButton = view.findViewById(R.id.changeUserButton);
+        Button changeUserButton = view.findViewById(R.id.changeUserButton);
         firstNameEditText = view.findViewById(R.id.firstNameEditText);
         lastNameEditText = view.findViewById(R.id.lastNameEditText);
         phoneEditText = view.findViewById(R.id.phoneEditText);
@@ -39,17 +42,14 @@ public class ChangeUserFragment extends Fragment {
         lastNameEditText.setText(user.getLastName());
         phoneEditText.setText(user.getPhone());
 
-        changeUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Users users = Users.get(getContext());
-                user.setFirstName(firstNameEditText.getText().toString());
-                user.setLastName(lastNameEditText.getText().toString());
-                user.setPhone(phoneEditText.getText().toString());
-                users.changeUser(user);
+        changeUserButton.setOnClickListener(v -> {
+            Users users = Users.get(getContext());
+            user.setFirstName(firstNameEditText.getText().toString());
+            user.setLastName(lastNameEditText.getText().toString());
+            user.setPhone(phoneEditText.getText().toString());
+            users.changeUser(user);
 
-                getActivity().onBackPressed();
-            }
+            getParentFragmentManager().popBackStack();
         });
         return view;
     }

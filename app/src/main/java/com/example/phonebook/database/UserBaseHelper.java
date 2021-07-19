@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.phonebook.database.UserDBSchema.*;
 
+// Данный класс создаёт БД при первом запуске приложения, когда БД ещё не создана
 public class UserBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "userBase.db";
@@ -24,8 +25,9 @@ public class UserBaseHelper extends SQLiteOpenHelper {
                 UserTable.Column.PHONE+")");
     }
 
+    // Если БД существует и версии различаются запускается метод onUpgrade()
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { // Если база существует и версии разичаются onUpgrade()
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 }

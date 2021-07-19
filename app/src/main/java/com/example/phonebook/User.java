@@ -6,7 +6,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String phone;
-    private UUID uuid;
+    private final UUID uuid;
 
     public User() {
         this(UUID.randomUUID());
