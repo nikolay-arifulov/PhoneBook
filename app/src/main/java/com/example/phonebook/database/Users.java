@@ -1,21 +1,24 @@
 package com.example.phonebook.database;
 
+import com.example.phonebook.model.User;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-
-import com.example.phonebook.User;
 
 import java.util.ArrayList;
 
 public class Users {
+
     private static Users users;
+
     private final SQLiteDatabase database;
 
     public static Users get(Context context) {
-        if (users == null) users = new Users(context);
+        if (users == null) {
+            users = new Users(context);
+        }
         return users;
     }
 
@@ -29,12 +32,16 @@ public class Users {
     }
 
     public void deleteUser(User user) {
-        database.delete(UserDBSchema.UserTable.NAME, UserDBSchema.UserTable.Column.UUID + "=?", new String[]{user.getUuid().toString()});
+        database.delete(UserDBSchema.UserTable.NAME,
+                UserDBSchema.UserTable.Column.UUID + "=?",
+                new String[]{user.getUuid().toString()});
     }
 
     public void changeUser(User user) {
         ContentValues values = getContentValues(user);
-        database.update(UserDBSchema.UserTable.NAME, values, UserDBSchema.UserTable.Column.UUID + "=?", new String[]{user.getUuid().toString()});
+        database.update(UserDBSchema.UserTable.NAME, values,
+                UserDBSchema.UserTable.Column.UUID + "=?",
+                new String[]{user.getUuid().toString()});
     }
 
     private static ContentValues getContentValues(User user){
@@ -46,13 +53,15 @@ public class Users {
         return values;
     }
 
-    // Метод извлекает все данные из таблицы в виде Cursor
+    /**
+     * @return все данные из таблицы в виде Cursor
+     */
     private UserCursorWrapper queryUsers() {
-        Cursor cursor = database.query(UserDBSchema.UserTable.NAME,null,null,null,null,null,null);
+        Cursor cursor = database.query(UserDBSchema.UserTable.NAME,
+                null, null, null, null, null, null);
         return new UserCursorWrapper(cursor);
     }
 
-    // Метод возвращает список пользователей из таблицы
     public ArrayList<User> getUserList() {
         ArrayList<User> userList = new ArrayList<>();
         try (UserCursorWrapper cursorWrapper = queryUsers()) {
@@ -63,7 +72,6 @@ public class Users {
                 cursorWrapper.moveToNext();
             }
         }
-
         return userList;
     }
 }

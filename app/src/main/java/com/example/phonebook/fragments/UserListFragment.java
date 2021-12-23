@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phonebook.R;
-import com.example.phonebook.User;
+import com.example.phonebook.model.User;
 import com.example.phonebook.database.Users;
 
 import java.util.ArrayList;

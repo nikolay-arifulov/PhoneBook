@@ -11,13 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.phonebook.R;
-import com.example.phonebook.User;
+import com.example.phonebook.model.User;
 import com.example.phonebook.database.Users;
 
 public class ChangeUserFragment extends Fragment {
+
     private EditText firstNameEditText;
+
     private EditText lastNameEditText;
+
     private EditText phoneEditText;
+
     private User user;
 
     @Override

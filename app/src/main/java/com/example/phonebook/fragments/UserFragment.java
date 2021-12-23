@@ -13,11 +13,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.phonebook.R;
-import com.example.phonebook.User;
+import com.example.phonebook.model.User;
 import com.example.phonebook.database.Users;
 
 public class UserFragment extends Fragment {
+
     private int position;
+
     private User user;
 
     @Override
@@ -28,13 +30,16 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_user, container, false);
         TextView nameTextView = view.findViewById(R.id.nameTextView);
         TextView phoneTextView = view.findViewById(R.id.phoneTextView);
         Button deleteUserButton = view.findViewById(R.id.deleteUserButton);
         Button changeUserButton = view.findViewById(R.id.changeUserButton);
 
-        if (getArguments() != null) position = getArguments().getInt("position", 1);
+        if (getArguments() != null) {
+            position = getArguments().getInt("position", 1);
+        }
         user = Users.get(getActivity()).getUserList().get(position);
         String name = String.format("%s %s", user.getFirstName(), user.getLastName());
         nameTextView.setText(name);

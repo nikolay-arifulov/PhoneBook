@@ -3,11 +3,12 @@ package com.example.phonebook.database;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
-import com.example.phonebook.User;
+import com.example.phonebook.model.User;
 
 import java.util.UUID;
 
 public class UserCursorWrapper extends CursorWrapper {
+
     public UserCursorWrapper(Cursor cursor) {
         super(cursor);
     }
